@@ -1,0 +1,68 @@
+name: 🐛 Bug report
+description: Report something that's broken or not working as expected
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please fill out the details below so we can reproduce and fix it faster.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the bug and what you expected to happen instead.
+      placeholder: When I do X, Y happens — but I expected Z.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: How can we make the bug happen?
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. See error
+    validations:
+      required: true
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or recordings
+      description: If applicable, add screenshots or a screen recording. You can drag & drop files here.
+    validations:
+      required: false
+  - type: input
+    id: version
+    attributes:
+      label: vinv version
+      description: Which version of vinv are you using?
+      placeholder: e.g. 1.2.3
+    validations:
+      required: false
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - Windows
+        - macOS
+        - Linux
+        - Other / not sure
+    validations:
+      required: false
+  - type: textarea
+    id: environment
+    attributes:
+      label: Additional context
+      description: Anything else that might help — browser, logs, error messages, etc.
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Confirmation
+      options:
+        - label: I searched existing issues and this is not a duplicate.
+          required: true

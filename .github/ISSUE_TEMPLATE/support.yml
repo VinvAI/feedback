@@ -1,0 +1,39 @@
+name: ❓ Support / question
+description: Ask a question or get help using vinv
+title: "[Support]: "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Need help or have a question? Ask away.
+
+        ⚠️ For **sensitive issues** (security, account, or billing), please email **support@vinv.ai** instead of filing a public issue.
+  - type: textarea
+    id: question
+    attributes:
+      label: What do you need help with?
+      description: Describe your question or the problem you're stuck on.
+    validations:
+      required: true
+  - type: textarea
+    id: tried
+    attributes:
+      label: What have you tried?
+      description: Steps you've already taken, docs you've checked, etc.
+    validations:
+      required: false
+  - type: input
+    id: version
+    attributes:
+      label: vinv version
+      placeholder: e.g. 1.2.3
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Confirmation
+      options:
+        - label: I searched existing issues and discussions first.
+          required: true
