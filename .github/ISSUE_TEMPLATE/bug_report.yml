@@ -36,8 +36,8 @@ body:
   - type: input
     id: version
     attributes:
-      label: vinv version
-      description: Which version of vinv are you using?
+      label: VinvAI version
+      description: Which version of VinvAI are you using?
       placeholder: e.g. 1.2.3
     validations:
       required: false

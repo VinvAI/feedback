@@ -1,5 +1,5 @@
 name: ✨ Feature request
-description: Suggest an idea or improvement for vinv
+description: Suggest an idea or improvement for VinvAI
 title: "[Feature]: "
 labels: ["enhancement"]
 body:
@@ -20,7 +20,7 @@ body:
     attributes:
       label: Proposed solution
       description: What would you like to see happen?
-      placeholder: It would be great if vinv could...
+      placeholder: It would be great if VinvAI could...
     validations:
       required: true
   - type: textarea

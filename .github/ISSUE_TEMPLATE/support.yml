@@ -1,5 +1,5 @@
 name: ❓ Support / question
-description: Ask a question or get help using vinv
+description: Ask a question or get help using VinvAI
 title: "[Support]: "
 labels: ["question"]
 body:
@@ -26,7 +26,7 @@ body:
   - type: input
     id: version
     attributes:
-      label: vinv version
+      label: VinvAI version
       placeholder: e.g. 1.2.3
     validations:
       required: false
