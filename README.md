@@ -16,9 +16,9 @@
 
 ---
 
-Your agent reads your code but has never watched it run — so it edits the wrong handler, invents return shapes, tunes paths your traffic never hits, and then grades its own homework: *"Done — all tests pass"* while the server won't even start.
+Your agent has never watched your code run — it edits the wrong handler, invents return shapes, then grades its own homework: *"Done — all tests pass"* while the server won't even start.
 
-Vinv runs your app, records the run, ties every request to the exact line that served it, hands that evidence to the agent you already use — and when the agent claims a fix, **Vinv checks it independently**: the service is replayed, the port must actually serve, and acceptance tests the agent has never seen must pass. One click reverts everything an episode touched — untracked files included.
+Vinv records the run, ties every request to the exact line that served it, hands that evidence to your agent — and when the agent claims a fix, **Vinv checks it independently**: replayed start, live port, acceptance tests the agent never sees. One click reverts everything an episode touched — untracked files included.
 
 `// the loop — explore the graph, ask with evidence, dispatch a fix, judge the verdict`
 
@@ -36,14 +36,17 @@ Vinv runs your app, records the run, ties every request to the exact line that s
 - **Closes the loop** — hand an issue to your own coding agent; Vinv composes the evidence pack, dispatches it, and **verifies the result itself**.
 - **Works with the agent you already use** — Claude Code, Codex CLI, Cursor (CLI & chat), Gemini CLI, Copilot Chat, Windsurf Cascade — over MCP and headless dispatch.
 
+## `// THE CONTEXT GRAPH`
+
+Four artefacts, one join. Vinv indexes **the code** (every symbol and call edge) and generates — from your own run — **the traces** (one span per call), **the logs** (timestamped call events from that same trace), and **the metrics** (per-symbol latency & memory), then ties all four to the *exact function that handled each request*. The artefacts are commodities; **the join is not**. One graph, served to your agent, instead of four tools it has to guess between.
+
 ## `// HOW IT WORKS`
 
 1. **Trace** — run your Python service under the bundled tracer: no SDK, no code changes, no dashboards. Calls are recorded with real values (summarized and redacted — see [Data & privacy](#-data--privacy)).
-2. **Join** — each recorded call is keyed to its exact source symbol (`file:line`) and the request that caused it. Symptom → source, one picture.
-3. **Index** — every function and class is summarized, embedded, and ranked into a local semantic index with a call/inheritance graph; incremental updates on save keep it current.
-4. **Serve** — two MCP servers hand all of it to your agent: semantic code search, fault-localization rankings, observed values, call slices, coverage, blast radius.
-5. **Verify** — after a dispatched fix, Vinv replays the recorded start command in a fresh process, requires the port to actually serve, and runs acceptance tests generated *before* the fix that the agent never sees. Failures feed the next attempt; inconclusive evidence escalates to your judgment card.
-6. **Learn** — every decision and outcome is propensity-logged; retrieval and context-pack composition update only when off-policy evaluation shows a real win over your baseline (local, never uploaded).
+2. **Index** — every function and class is summarized, embedded, and ranked into a local semantic index with a call/inheritance graph; incremental updates on save keep it current.
+3. **Serve** — two MCP servers hand the context graph to your agent: semantic code search, fault-localization rankings, observed values, call slices, coverage, blast radius.
+4. **Verify** — after a dispatched fix, Vinv replays the recorded start command in a fresh process, requires the port to actually serve, and runs acceptance tests generated *before* the fix that the agent never sees. Failures feed the next attempt; inconclusive evidence escalates to your judgment card.
+5. **Learn** — every decision and outcome is propensity-logged; retrieval and context-pack composition update only when off-policy evaluation shows a real win over your baseline (local, never uploaded).
 
 ## `// INSTALL`
 
@@ -69,7 +72,18 @@ Then open the **Vinv** panel in the Activity Bar and **sign in** (first month fr
 
 Lost at any point? **Vinv: What Should I Do Next?** names the single most valuable next action from your actual workspace state — and Help → Welcome → **Get Started with Vinv** re-opens the walkthrough.
 
-> **Honest scope:** Python backends first — other stacks get the index, graph, and QnA, but no runtime evidence (TS & Go next) · v0.0.x · works with Claude Code, Cursor, Codex CLI, Gemini CLI, Copilot Chat, Windsurf — over MCP and headless dispatch (Gemini CLI: dispatch only) · Vinv does **not** do cost metering, security scanning of generated code, or production deployment.
+> **Honest scope:** Python backends first — other stacks get the index, graph, and QnA, but no runtime evidence (TS & Go next) · v0.0.x · works with six agents over MCP and headless dispatch (Gemini CLI: dispatch only — see Agent Setup) · Vinv does **not** do cost metering, security scanning of generated code, or production deployment.
+
+## `// SOUND FAMILIAR?`
+
+| You searched for… | What Vinv does about it |
+|---|---|
+| *"claude code says done but tests fail"* | Replayed start, live port, tests the agent never sees — "done" becomes a verdict |
+| *"agent stuck in a doom loop"* | Evidence-fed retries, a stall breaker, a watchdog, a loop guard — bounded, then ended |
+| *"agent forgets my codebase every session"* | The index and context graph persist on disk; one MCP call re-hydrates a fresh session |
+| *"AI hallucinating functions"* | `vinv_query` returns the real symbols with real signatures — retrieval, not memory |
+| *"almost right, but not quite"* | `rank_suspects` + `values_of` + `slice`: what ran, what values flowed, where it broke |
+| *"agent broke something else while fixing"* | Diff impact blast radius, regression tests pinning neighbors, one-click revert |
 
 ## `// FEATURES`
 
